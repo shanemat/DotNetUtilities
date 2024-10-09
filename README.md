@@ -11,6 +11,16 @@ the type of tests.
 For details about each individual project see the _README.md_ file in said project. The complete structure is as
 follows:
 
+* [Core](Core/README.md)
+
+## Attributions
+
+I would like to express my thanks for being able to use the following icons for my NuGet packages:
+
+* <a href="https://freeicons.io">freeicons.io</a>
+    * <a class="link_pro" href="https://freeicons.io/ui-essentials/ui-essentials-settings-cog-gear-icon-22028">Core</a>
+      (by <a href="https://freeicons.io/profile/2257">www\.wishforge\.games</a>)
+
 ## Disclaimer
 
 The main purpose of this repository is for it to be my personal sandbox where I can experiment with .NET code, NuGet
