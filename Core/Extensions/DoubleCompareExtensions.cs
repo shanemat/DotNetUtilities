@@ -149,5 +149,40 @@ public static class DoubleCompareExtensions
 
 	#endregion
 
+	#region IsLessThenOrEqualTo
+
+	/// <summary>
+	/// Returns a value indicating whether the first value is less than or equal to the second one (within the specified tolerance)
+	/// </summary>
+	/// <param name="value">The value to compare</param>
+	/// <param name="otherValue">The value to compare the first value to</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether the first value is less than or equal to the second one (within the specified tolerance)</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	public static bool IsLessThanOrEqualTo( this double value, double otherValue, double tolerance = Tolerance.Standard )
+	{
+		Tolerance.Validate( tolerance );
+
+		return otherValue - value >= -tolerance;
+	}
+
+	/// <summary>
+	/// Returns a value indicating whether the first value is less than or equal to the second one (within the specified tolerance)
+	/// </summary>
+	/// <param name="value">The value to compare</param>
+	/// <param name="otherValue">The value to compare the first value to</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether the first value is less than or equal to the second one (within the specified tolerance)</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	/// <remarks>Please note that this method will return <see langword="false"/> if either (or both) of the values is <see langword="null"/></remarks>
+	public static bool IsLessThanOrEqualTo( this double? value, double? otherValue, double tolerance = Tolerance.Standard )
+	{
+		Tolerance.Validate( tolerance );
+
+		return otherValue - value >= -tolerance;
+	}
+
+	#endregion
+
 	#endregion
 }
