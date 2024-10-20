@@ -250,5 +250,38 @@ public static class DoubleCompareExtensions
 
 	#endregion
 
+	#region IsNonPositive
+
+	/// <summary>
+	/// Returns a value indicating whether the value is non-positive (within the specified tolerance)
+	/// </summary>
+	/// <param name="value">The value to check</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether the value is non-positive (within the specified tolerance)</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	public static bool IsNonPositive( this double value, double tolerance = Tolerance.Standard )
+	{
+		Tolerance.Validate( tolerance );
+
+		return value.IsLessThanOrEqualTo( 0.0, tolerance );
+	}
+
+	/// <summary>
+	/// Returns a value indicating whether the value is non-positive (within the specified tolerance)
+	/// </summary>
+	/// <param name="value">The value to check</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether the value is non-positive (within the specified tolerance)</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	/// <remarks>Please note that this method will return <see langword="false"/> if the value is <see langword="null"/></remarks>
+	public static bool IsNonPositive( this double? value, double tolerance = Tolerance.Standard )
+	{
+		Tolerance.Validate( tolerance );
+
+		return value.IsLessThanOrEqualTo( 0.0, tolerance );
+	}
+
+	#endregion
+
 	#endregion
 }
