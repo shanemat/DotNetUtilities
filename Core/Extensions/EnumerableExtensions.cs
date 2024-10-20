@@ -29,6 +29,24 @@ public static class EnumerableExtensions
 		_ => source.SelectMany( x => collection.Select( y => new[] { x, y } ) )
 	};
 
+	/// <summary>
+	/// Combines the values of the given two collections
+	/// </summary>
+	/// <param name="source">The source collection to combine</param>
+	/// <param name="collection">The other collection to combine source collection with</param>
+	/// <typeparam name="T">The type of values stored in collections to combine</typeparam>
+	/// <returns>Returns a collection of combination products</returns>
+	/// <remarks>The result will be a collection of arrays where each item is created by appending a value from <paramref name="collection"/> to an array from <paramref name="source"/></remarks>
+	[return: NotNullIfNotNull( nameof( source ) )]
+	[return: NotNullIfNotNull( nameof( collection ) )]
+	public static IEnumerable<T[]>? CombineWith<T>( this IEnumerable<T[]>? source, IReadOnlyCollection<T>? collection ) => (source, collection) switch
+	{
+		(null, null) => null,
+		(null, _) => collection.Select( v => new[] { v } ),
+		(_, null) => source,
+		_ => source.SelectMany( x => collection.Select( y => x.Append( y ).ToArray() ) )
+	};
+
 	#endregion
 
 	#endregion
