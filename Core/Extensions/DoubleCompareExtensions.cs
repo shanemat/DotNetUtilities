@@ -316,5 +316,38 @@ public static class DoubleCompareExtensions
 
 	#endregion
 
+	#region IsZero
+
+	/// <summary>
+	/// Returns a value indicating whether the value is zero (within specified tolerance)
+	/// </summary>
+	/// <param name="value">The value to check</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether the value is zero (within specified tolerance)</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	public static bool IsZero( this double value, double tolerance = Tolerance.Standard )
+	{
+		Tolerance.Validate( tolerance );
+
+		return value.IsEqualTo( 0.0, tolerance );
+	}
+
+	/// <summary>
+	/// Returns a value indicating whether the value is zero (within specified tolerance)
+	/// </summary>
+	/// <param name="value">The value to check</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether the value is zero (within specified tolerance)</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	/// <remarks>Please note that this method will return <see langword="false"/> if the value is <see langword="null"/></remarks>
+	public static bool IsZero( this double? value, double tolerance = Tolerance.Standard )
+	{
+		Tolerance.Validate( tolerance );
+
+		return value.IsEqualTo( 0.0, tolerance );
+	}
+
+	#endregion
+
 	#endregion
 }
