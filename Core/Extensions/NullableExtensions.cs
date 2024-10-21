@@ -7,6 +7,20 @@ public static class NullableExtensions
 {
 	#region Methods
 
+	#region As<T>
+
+	/// <summary>
+	/// Attempts to cast the given object to the specified type
+	/// </summary>
+	/// <param name="object">The object to cast</param>
+	/// <param name="fallbackValue">The value to return if the cast fails</param>
+	/// <typeparam name="T">The type to cast object to</typeparam>
+	/// <returns>The cast object or a fallback value in case the object cannot be cast</returns>
+	public static T? As<T>( this object? @object, T? fallbackValue = default )
+		=> @object is T castObject ? castObject : fallbackValue;
+
+	#endregion
+
 	#region IsEqualTo<T>
 
 	/// <summary>
