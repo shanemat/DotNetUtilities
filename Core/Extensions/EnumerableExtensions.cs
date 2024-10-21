@@ -85,5 +85,19 @@ public static class EnumerableExtensions
 
 	#endregion
 
+	#region WithIndices<T>
+
+	/// <summary>
+	/// Adds indices to the elements of the given collection
+	/// </summary>
+	/// <param name="source">The source collection to add indices to</param>
+	/// <typeparam name="T">The type of elements stored in the collection</typeparam>
+	/// <returns>A collection of tuples with the original elements and their indices</returns>
+	[return: NotNullIfNotNull( nameof( source ) )]
+	public static IEnumerable<(int Index, T Element)>? WithIndices<T>( this IEnumerable<T>? source )
+		=> source?.Select( ( element, index ) => (index, element) );
+
+	#endregion
+
 	#endregion
 }
