@@ -43,6 +43,19 @@ public static class OwnedObjectExtensions
 
 	#endregion
 
+	#region GetOwnerOrNull
+
+	/// <summary>
+	/// Returns the first object of <typeparamref name="T"/> type in the ownership hierarchy
+	/// </summary>
+	/// <param name="ownedObject">The object to get owner of</param>
+	/// <param name="fallbackValue">The value to return in case no owner of the specified type exists in the ownership hierarchy</param>
+	/// <typeparam name="T">The type of the owner to return</typeparam>
+	/// <returns> Returns the first object of <typeparamref name="T"/> type in the ownership hierarchy or default value if no such exists</returns>
+	public static T? GetOwnerOrDefault<T>( this IOwnedObject? ownedObject, T? fallbackValue = default ) => TryGetOwner( ownedObject, out T? owner ) ? owner : fallbackValue;
+
+	#endregion
+
 	#region Helpers
 
 	/// <summary>
