@@ -44,5 +44,13 @@ public interface IInterval
 	/// <returns>A value indicating whether the interval contains the given value (within the specified tolerance)</returns>
 	bool Contains( double value, double tolerance = Tolerance.Standard );
 
+	/// <summary>
+	/// Returns a value indicating whether this and the given interval are equal (within the specified tolerance)
+	/// </summary>
+	/// <param name="other">The other interval to check</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether this and the given interval are equal (within the specified tolerance)</returns>
+	bool IsEqualTo( IInterval? other, double tolerance = Tolerance.Standard );
+
 	#endregion
 }

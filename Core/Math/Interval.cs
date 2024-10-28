@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Shanemat.DotNetUtils.Core.Extensions;
 
@@ -166,6 +167,8 @@ public readonly struct Interval : IInterval
 			(false, false) => value.IsGreaterThan( Minimum, tolerance ) && value.IsLessThan( Maximum, tolerance ),
 		};
 	}
+
+	public bool IsEqualTo( [NotNullWhen( true )] IInterval? other, double tolerance = Tolerance.Standard ) => AreEqual( this, other, tolerance );
 
 	#endregion
 }
