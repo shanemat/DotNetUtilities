@@ -27,5 +27,10 @@ public interface IInterval
 	/// </summary>
 	bool IsMaximumIncluded { get; }
 
+	/// <summary>
+	/// Gets the length
+	/// </summary>
+	double Length { get; }
+
 	#endregion
 }

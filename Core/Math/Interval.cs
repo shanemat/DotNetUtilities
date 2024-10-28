@@ -106,5 +106,16 @@ public readonly struct Interval : IInterval
 
 	public bool IsMaximumIncluded { get; }
 
+	public double Length
+	{
+		get
+		{
+			if( double.IsInfinity( Minimum ) || double.IsInfinity( Maximum ) )
+				return double.PositiveInfinity;
+
+			return Maximum - Minimum;
+		}
+	}
+
 	#endregion
 }
