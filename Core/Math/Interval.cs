@@ -194,6 +194,45 @@ public readonly struct Interval : IInterval
 		return one.Maximum.IsEqualTo( other.Maximum, tolerance ) || (double.IsPositiveInfinity( one.Maximum ) && double.IsPositiveInfinity( other.Maximum ));
 	}
 
+	/// <summary>
+	/// Returns a value indicating whether the two given intervals intersect (within the specified tolerance)
+	/// </summary>
+	/// <param name="one">One of the intervals to check</param>
+	/// <param name="other">The other interval to check</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether the two given intervals intersect (within the specified tolerance)</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	public static bool Intersect( [NotNullWhen( true )] IInterval? one, [NotNullWhen( true )] IInterval? other, double tolerance = Tolerance.Standard )
+	{
+		Tolerance.Validate( tolerance );
+
+		if( one is null || other is null )
+			return false;
+
+		if( IsWithin( one.Minimum, other ) || IsWithin( one.Maximum, other ) )
+			return true;
+
+		if( IsWithin( other.Minimum, one ) || IsWithin( other.Maximum, one ) )
+			return true;
+
+		var areLowerBoundsEqual = one.Minimum.IsEqualTo( other.Minimum, tolerance ) || (double.IsNegativeInfinity( one.Minimum ) && double.IsNegativeInfinity( other.Minimum ));
+		var areUpperBoundsEqual = one.Maximum.IsEqualTo( other.Maximum, tolerance ) || (double.IsPositiveInfinity( one.Maximum ) && double.IsPositiveInfinity( other.Maximum ));
+
+		if( areLowerBoundsEqual && areUpperBoundsEqual )
+			return true;
+
+		if( one.IsMaximumIncluded && other.IsMinimumIncluded && one.Maximum.IsEqualTo( other.Minimum, tolerance ) )
+			return true;
+
+		if( other.IsMaximumIncluded && one.IsMinimumIncluded && other.Maximum.IsEqualTo( one.Minimum, tolerance ) )
+			return true;
+
+		return false;
+
+		bool IsWithin( double value, IInterval interval )
+			=> value.IsGreaterThan( interval.Minimum, tolerance ) && value.IsLessThan( interval.Maximum, tolerance );
+	}
+
 	#endregion
 
 	#region Interval
