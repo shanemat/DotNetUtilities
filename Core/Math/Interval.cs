@@ -59,6 +59,14 @@ public readonly struct Interval : IInterval
 	public static IInterval ClosedOpen( double minimum, double maximum ) => CreateInterval( minimum, isMinimumIncluded: true, maximum, isMaximumIncluded: false );
 
 	/// <summary>
+	/// Creates a new closed interval
+	/// </summary>
+	/// <param name="minimum">The minimum value</param>
+	/// <param name="maximum">The maximum value</param>
+	/// <returns>The created interval</returns>
+	public static IInterval Closed( double minimum, double maximum ) => CreateInterval( minimum, isMinimumIncluded: true, maximum, isMaximumIncluded: true );
+
+	/// <summary>
 	/// Creates a new instance of <see cref="Interval"/> struct
 	/// </summary>
 	/// <param name="minimum">The minimum value</param>
