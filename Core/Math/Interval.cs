@@ -233,6 +233,38 @@ public readonly struct Interval : IInterval
 			=> value.IsGreaterThan( interval.Minimum, tolerance ) && value.IsLessThan( interval.Maximum, tolerance );
 	}
 
+	/// <summary>
+	/// Returns the intersection of the given two intervals
+	/// </summary>
+	/// <param name="one">One of the intervals to create intersection of</param>
+	/// <param name="other">The other interval to create intersection of</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>Intersection of the given two intervals (or <see langword="null"/> if the intervals do not intersect)</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	public static IInterval? GetIntersection( IInterval? one, IInterval? other, double tolerance = Tolerance.Standard )
+	{
+		if( !Intersect( one, other, tolerance ) )
+			return null;
+
+		var (minimum, isMinimumIncluded) = (one.Minimum.IsEqualTo( other.Minimum, tolerance ), one.Minimum > other.Minimum) switch
+		{
+			(false, true) => (one.Minimum, one.IsMinimumIncluded),
+			(false, false) => (other.Minimum, other.IsMinimumIncluded),
+			(true, true) => (one.Minimum, one.IsMinimumIncluded && other.IsMinimumIncluded),
+			(true, false) => (other.Minimum, one.IsMinimumIncluded && other.IsMinimumIncluded)
+		};
+
+		var (maximum, isMaximumIncluded) = (one.Maximum.IsEqualTo( other.Maximum, tolerance ), one.Maximum < other.Maximum) switch
+		{
+			(false, true) => (one.Maximum, one.IsMaximumIncluded),
+			(false, false) => (other.Maximum, other.IsMaximumIncluded),
+			(true, true) => (one.Maximum, one.IsMaximumIncluded && other.IsMaximumIncluded),
+			(true, false) => (other.Maximum, one.IsMaximumIncluded && other.IsMaximumIncluded)
+		};
+
+		return new Interval( System.Math.Min( minimum, maximum ), isMinimumIncluded, System.Math.Max( minimum, maximum ), isMaximumIncluded );
+	}
+
 	#endregion
 
 	#region Interval
