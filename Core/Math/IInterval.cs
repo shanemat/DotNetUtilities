@@ -52,5 +52,13 @@ public interface IInterval : IEquatable<IInterval>
 	/// <returns>A value indicating whether this and the given interval are equal (within the specified tolerance)</returns>
 	bool IsEqualTo( IInterval? other, double tolerance = Tolerance.Standard );
 
+	/// <summary>
+	/// Returns a value indicating whether this and the given interval intersect (within the specified tolerance)
+	/// </summary>
+	/// <param name="other">The other interval to check</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether this and the given interval intersect (within the specified tolerance)</returns>
+	bool IntersectsWith( IInterval? other, double tolerance = Tolerance.Standard );
+
 	#endregion
 }
