@@ -60,5 +60,13 @@ public interface IInterval : IEquatable<IInterval>
 	/// <returns>A value indicating whether this and the given interval intersect (within the specified tolerance)</returns>
 	bool IntersectsWith( IInterval? other, double tolerance = Tolerance.Standard );
 
+	/// <summary>
+	/// Returns the intersection of this and the given interval
+	/// </summary>
+	/// <param name="other">The other interval to create intersection of</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>Intersection of this and the given interval (or <see langword="null"/> if the intervals do not intersect)</returns>
+	IInterval? GetIntersectionWith( IInterval? other, double tolerance = Tolerance.Standard );
+
 	#endregion
 }

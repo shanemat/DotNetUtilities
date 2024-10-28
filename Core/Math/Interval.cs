@@ -313,5 +313,7 @@ public readonly struct Interval : IInterval
 
 	public bool IntersectsWith( [NotNullWhen( true )] IInterval? other, double tolerance = Tolerance.Standard ) => Intersect( this, other, tolerance );
 
+	public IInterval? GetIntersectionWith( IInterval? other, double tolerance = Tolerance.Standard ) => GetIntersection( this, other, tolerance );
+
 	#endregion
 }
