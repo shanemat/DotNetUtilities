@@ -95,6 +95,36 @@ public readonly struct Interval : IInterval
 		return new Interval( minimum, isMinimumIncluded, maximum, isMaximumIncluded );
 	}
 
+	/// <summary>
+	/// Returns a value indicating whether the given two intervals are equal (within the specified tolerance)
+	/// </summary>
+	/// <param name="one">One of the intervals to check</param>
+	/// <param name="other">The other interval to check</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether the given two intervals are equal (within the specified tolerance)</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	public static bool AreEqual( IInterval? one, IInterval? other, double tolerance = Tolerance.Standard )
+	{
+		Tolerance.Validate( tolerance );
+
+		if( ReferenceEquals( one, other ) )
+			return true;
+
+		if( one is null || other is null )
+			return false;
+
+		if( one.IsMinimumIncluded != other.IsMinimumIncluded )
+			return false;
+
+		if( one.IsMaximumIncluded != other.IsMaximumIncluded )
+			return false;
+
+		if( !one.Minimum.IsEqualTo( other.Minimum, tolerance ) && (!double.IsNegativeInfinity( one.Minimum ) || !double.IsNegativeInfinity( other.Minimum )) )
+			return false;
+
+		return one.Maximum.IsEqualTo( other.Maximum, tolerance ) || (double.IsPositiveInfinity( one.Maximum ) && double.IsPositiveInfinity( other.Maximum ));
+	}
+
 	#endregion
 
 	#region Interval
