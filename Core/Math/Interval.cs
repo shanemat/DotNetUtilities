@@ -265,6 +265,52 @@ public readonly struct Interval : IInterval
 		return new Interval( System.Math.Min( minimum, maximum ), isMinimumIncluded, System.Math.Max( minimum, maximum ), isMaximumIncluded );
 	}
 
+	/// <summary>
+	/// Returns the union of the given two intervals
+	/// </summary>
+	/// <param name="one">One of the intervals to create union of</param>
+	/// <param name="other">The other interval to create union of</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>Union of the given two intervals (or <see langword="null"/> if the union would not be a single interval)</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	public static IInterval? GetUnion( IInterval? one, IInterval? other, double tolerance = Tolerance.Standard )
+	{
+		if( !CanFormUnion( one, other, tolerance ) )
+			return null;
+
+		var (minimum, isMinimumIncluded) = (one.Minimum.IsEqualTo( other.Minimum, tolerance ), one.Minimum < other.Minimum) switch
+		{
+			(false, true) => (one.Minimum, one.IsMinimumIncluded),
+			(false, false) => (other.Minimum, other.IsMinimumIncluded),
+			(true, true) => (one.Minimum, one.IsMinimumIncluded || other.IsMinimumIncluded),
+			(true, false) => (other.Minimum, one.IsMinimumIncluded || other.IsMinimumIncluded)
+		};
+
+		var (maximum, isMaximumIncluded) = (one.Maximum.IsEqualTo( other.Maximum, tolerance ), one.Maximum > other.Maximum) switch
+		{
+			(false, true) => (one.Maximum, one.IsMaximumIncluded),
+			(false, false) => (other.Maximum, other.IsMaximumIncluded),
+			(true, true) => (one.Maximum, one.IsMaximumIncluded || other.IsMaximumIncluded),
+			(true, false) => (other.Maximum, one.IsMaximumIncluded || other.IsMaximumIncluded)
+		};
+
+		return new Interval( System.Math.Min( minimum, maximum ), isMinimumIncluded, System.Math.Max( minimum, maximum ), isMaximumIncluded );
+
+		static bool CanFormUnion( [NotNullWhen( true )] IInterval? one, [NotNullWhen( true )] IInterval? other, double tolerance )
+		{
+			if( Intersect( one, other, tolerance ) )
+				return true;
+
+			if( one is null || other is null )
+				return false;
+
+			if( (one.IsMaximumIncluded || other.IsMinimumIncluded) && one.Maximum.IsEqualTo( other.Minimum, tolerance ) )
+				return true;
+
+			return (other.IsMaximumIncluded || one.IsMinimumIncluded) && other.Maximum.IsEqualTo( one.Minimum, tolerance );
+		}
+	}
+
 	#endregion
 
 	#region Interval
