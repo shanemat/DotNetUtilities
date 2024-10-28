@@ -33,4 +33,16 @@ public interface IInterval
 	double Length { get; }
 
 	#endregion
+
+	#region Methods
+
+	/// <summary>
+	/// Returns a value indicating whether the interval contains the given value (within the specified tolerance)
+	/// </summary>
+	/// <param name="value">The value to check</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether the interval contains the given value (within the specified tolerance)</returns>
+	bool Contains( double value, double tolerance = Tolerance.Standard );
+
+	#endregion
 }

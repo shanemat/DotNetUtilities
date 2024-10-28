@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+using System.Globalization;
+using Shanemat.DotNetUtils.Core.Extensions;
 
 namespace Shanemat.DotNetUtils.Core.Math;
 
@@ -115,6 +116,25 @@ public readonly struct Interval : IInterval
 
 			return Maximum - Minimum;
 		}
+	}
+
+	public bool Contains( double value, double tolerance = Tolerance.Standard )
+	{
+		Tolerance.Validate( tolerance );
+
+		if( double.IsNegativeInfinity( value ) && double.IsNegativeInfinity( Minimum ) )
+			return true;
+
+		if( double.IsPositiveInfinity( value ) && double.IsPositiveInfinity( Maximum ) )
+			return true;
+
+		return (IsMinimumIncluded, IsMaximumIncluded) switch
+		{
+			(true, true) => value.IsGreaterThanOrEqualTo( Minimum, tolerance ) && value.IsLessThanOrEqualTo( Maximum, tolerance ),
+			(true, false) => value.IsGreaterThanOrEqualTo( Minimum, tolerance ) && value.IsLessThan( Maximum, tolerance ),
+			(false, true) => value.IsGreaterThan( Minimum, tolerance ) && value.IsLessThanOrEqualTo( Maximum, tolerance ),
+			(false, false) => value.IsGreaterThan( Minimum, tolerance ) && value.IsLessThan( Maximum, tolerance ),
+		};
 	}
 
 	#endregion
