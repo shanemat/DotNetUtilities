@@ -68,5 +68,13 @@ public interface IInterval : IEquatable<IInterval>
 	/// <returns>Intersection of this and the given interval (or <see langword="null"/> if the intervals do not intersect)</returns>
 	IInterval? GetIntersectionWith( IInterval? other, double tolerance = Tolerance.Standard );
 
+	/// <summary>
+	/// Returns the union of this and the given interval
+	/// </summary>
+	/// <param name="other">The other interval to create union of</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>Union of this and the given interval (or <see langword="null"/> if the union would not be a single interval)</returns>
+	IInterval? GetUnionWith( IInterval? other, double tolerance = Tolerance.Standard );
+
 	#endregion
 }
