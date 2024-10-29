@@ -311,6 +311,31 @@ public readonly struct Interval : IInterval
 		}
 	}
 
+	/// <summary>
+	/// Returns the result of shortening the first interval by the second one
+	/// </summary>
+	/// <param name="toShorten">The interval to shorten</param>
+	/// <param name="shortenBy">The interval to shorten the other one by</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>Returns the result of shortening the first interval by the second one (or <see langword="null"/> if the resulting interval would be empty or the result would be an interval set)</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	public static IInterval? GetShortened( IInterval? toShorten, IInterval? shortenBy, double tolerance = Tolerance.Standard )
+	{
+		if( !Intersect( toShorten, shortenBy, tolerance ) )
+			return toShorten;
+
+		var containsMinimum = toShorten.Contains( shortenBy.Minimum, tolerance ) && !double.IsNegativeInfinity( shortenBy.Minimum );
+		var containsMaximum = toShorten.Contains( shortenBy.Maximum, tolerance ) && !double.IsPositiveInfinity( shortenBy.Maximum );
+
+		return (containsMinimum, containsMaximum) switch
+		{
+			(true, false) => new Interval( toShorten.Minimum, toShorten.IsMinimumIncluded, System.Math.Min( toShorten.Maximum, shortenBy.Minimum ), !shortenBy.IsMinimumIncluded ),
+			(false, true) => new Interval( System.Math.Max( toShorten.Minimum, shortenBy.Maximum ), !shortenBy.IsMaximumIncluded, toShorten.Maximum, toShorten.IsMaximumIncluded ),
+			(true, true)
+				or (false, false) => null
+		};
+	}
+
 	#endregion
 
 	#region Interval
