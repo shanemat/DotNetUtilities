@@ -388,5 +388,7 @@ public readonly struct Interval : IInterval
 
 	public IInterval? GetUnionWith( IInterval? other, double tolerance = Tolerance.Standard ) => GetUnion( this, other, tolerance );
 
+	public IInterval? GetShortenedBy( IInterval? shortenBy, double tolerance = Tolerance.Standard ) => GetShortened( this, shortenBy, tolerance );
+
 	#endregion
 }

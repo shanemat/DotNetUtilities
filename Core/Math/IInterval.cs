@@ -76,5 +76,13 @@ public interface IInterval : IEquatable<IInterval>
 	/// <returns>Union of this and the given interval (or <see langword="null"/> if the union would not be a single interval)</returns>
 	IInterval? GetUnionWith( IInterval? other, double tolerance = Tolerance.Standard );
 
+	/// <summary>
+	/// Returns the result of shortening this interval by the other one
+	/// </summary>
+	/// <param name="shortenBy">The interval to shorten this one by</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>Returns this interval set shortened by the other one (or <see langword="null"/> if the resulting interval would be empty or the result would be an interval set)</returns>
+	IInterval? GetShortenedBy( IInterval? shortenBy, double tolerance = Tolerance.Standard );
+
 	#endregion
 }
