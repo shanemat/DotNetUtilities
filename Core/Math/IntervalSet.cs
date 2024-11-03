@@ -212,5 +212,7 @@ public readonly struct IntervalSet : IIntervalSet
 
 	public bool Equals( [NotNullWhen( true )] IIntervalSet? other ) => IsEqualTo( other );
 
+	public IIntervalSet GetUnionWith( IIntervalSet? other, double tolerance = Tolerance.Standard ) => GetUnion( this, other, tolerance );
+
 	#endregion
 }

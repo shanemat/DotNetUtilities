@@ -49,5 +49,13 @@ public interface IIntervalSet : IEquatable<IIntervalSet>
 	/// <returns>A value indicating whether this and the given interval set are equal (within the specified tolerance)</returns>
 	bool IsEqualTo( IIntervalSet? other, double tolerance = Tolerance.Standard );
 
+	/// <summary>
+	/// Returns the union of this and the given interval set
+	/// </summary>
+	/// <param name="other">The other interval set to create union of</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>Union of this and the given interval set</returns>
+	IIntervalSet GetUnionWith( IIntervalSet? other, double tolerance = Tolerance.Standard );
+
 	#endregion
 }
