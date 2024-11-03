@@ -35,6 +35,18 @@ public readonly struct IntervalSet : IIntervalSet
 		? string.Join( " \u222a ", Intervals )
 		: "<Empty>";
 
+	public override int GetHashCode() => HashCode.Combine( Intervals.Count );
+
+	public override bool Equals( [NotNullWhen( true )] object? obj ) => Equals( obj as IIntervalSet );
+
+	#endregion
+
+	#region Operators
+
+	public static bool operator ==( IntervalSet left, IntervalSet right ) => left.Equals( right );
+
+	public static bool operator !=( IntervalSet left, IntervalSet right ) => !(left == right);
+
 	#endregion
 
 	#region Methods
@@ -130,6 +142,8 @@ public readonly struct IntervalSet : IIntervalSet
 	}
 
 	public bool IsEqualTo( [NotNullWhen( true )] IIntervalSet? other, double tolerance = Tolerance.Standard ) => AreEqual( this, other, tolerance );
+
+	public bool Equals( [NotNullWhen( true )] IIntervalSet? other ) => IsEqualTo( other );
 
 	#endregion
 }
