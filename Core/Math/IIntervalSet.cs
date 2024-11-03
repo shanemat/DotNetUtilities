@@ -66,6 +66,14 @@ public interface IIntervalSet : IEquatable<IIntervalSet>
 	IIntervalSet GetIntersectionWith( IIntervalSet? other, double tolerance = Tolerance.Standard );
 
 	/// <summary>
+	/// Returns the result of shortening this interval set by the other one
+	/// </summary>
+	/// <param name="shortenBy">The interval set to shorten this one by</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>Returns the result of shortening this interval set by the other one</returns>
+	IIntervalSet GetShortenedBy( IIntervalSet? shortenBy, double tolerance = Tolerance.Standard );
+
+	/// <summary>
 	/// Returns a complement to this interval set
 	/// </summary>
 	/// <returns>A complement to this interval set</returns>

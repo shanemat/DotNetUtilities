@@ -343,6 +343,8 @@ public readonly struct IntervalSet : IIntervalSet
 
 	public IIntervalSet GetIntersectionWith( IIntervalSet? other, double tolerance = Tolerance.Standard ) => GetIntersection( this, other, tolerance );
 
+	public IIntervalSet GetShortenedBy( IIntervalSet? shortenBy, double tolerance = Tolerance.Standard ) => GetShortened( this, shortenBy, tolerance );
+
 	public IIntervalSet GetComplement() => GetComplementTo( this );
 
 	#endregion
