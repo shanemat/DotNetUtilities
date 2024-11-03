@@ -97,5 +97,9 @@ public readonly struct IntervalSet : IIntervalSet
 		? Create( Intervals.Append( interval ), tolerance )
 		: this;
 
+	public IIntervalSet GetExtendedBy( IEnumerable<IInterval?>? intervals, double tolerance = Tolerance.Standard ) => intervals is not null
+		? Create( Intervals.Concat( intervals ), tolerance )
+		: this;
+
 	#endregion
 }
