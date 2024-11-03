@@ -87,6 +87,27 @@ public readonly struct IntervalSet : IIntervalSet
 		}
 	}
 
+	/// <summary>
+	/// Returns a value indicating whether the given two interval sets are equal (within the specified tolerance)
+	/// </summary>
+	/// <param name="one">One of the interval sets to check</param>
+	/// <param name="other">The other interval set to check</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether the given two interval sets are equal (within the specified tolerance)</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	public static bool AreEqual( IIntervalSet? one, IIntervalSet? other, double tolerance = Tolerance.Standard )
+	{
+		Tolerance.Validate( tolerance );
+
+		if( ReferenceEquals( one, other ) )
+			return true;
+
+		if( one is null || other is null )
+			return false;
+
+		return one.Intervals.SequenceEqual( other.Intervals, Interval.EqualityComparer.Create( tolerance ) );
+	}
+
 	#endregion
 
 	#region IIntervalSet
