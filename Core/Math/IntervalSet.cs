@@ -7,6 +7,62 @@ namespace Shanemat.DotNetUtils.Core.Math;
 /// </summary>
 public readonly struct IntervalSet : IIntervalSet
 {
+	#region Nested Types
+
+	/// <summary>
+	/// Compares equality of interval sets within the specified tolerance
+	/// </summary>
+	public sealed class EqualityComparer : IEqualityComparer<IIntervalSet>
+	{
+		#region Fields
+
+		/// <summary>
+		/// The tolerance to use
+		/// </summary>
+		private readonly double _tolerance;
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		/// Creates a new instance of <see cref="EqualityComparer"/> class
+		/// </summary>
+		/// <param name="tolerance">The tolerance to use</param>
+		private EqualityComparer( double tolerance )
+		{
+			_tolerance = tolerance;
+		}
+
+		#endregion
+
+		#region Methods
+
+		/// <summary>
+		/// Creates a new instance of <see cref="EqualityComparer"/> class
+		/// </summary>
+		/// <param name="tolerance">The tolerance to use</param>
+		/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+		public static IEqualityComparer<IIntervalSet> Create( double tolerance = Tolerance.Standard )
+		{
+			Tolerance.Validate( tolerance );
+
+			return new EqualityComparer( tolerance );
+		}
+
+		#endregion
+
+		#region IEqualityComparer<IIntervalSet>
+
+		public bool Equals( IIntervalSet? x, IIntervalSet? y ) => AreEqual( x, y, _tolerance );
+
+		public int GetHashCode( IIntervalSet obj ) => obj.GetHashCode();
+
+		#endregion
+	}
+
+	#endregion
+
 	#region Constructors
 
 	/// <summary>
