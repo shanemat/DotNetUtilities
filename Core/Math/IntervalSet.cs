@@ -187,6 +187,52 @@ public readonly struct IntervalSet : IIntervalSet
 	public static IIntervalSet GetUnion( IIntervalSet? one, IIntervalSet? other, double tolerance = Tolerance.Standard )
 		=> Create( (one?.Intervals ?? []).Concat( other?.Intervals ?? [] ), tolerance );
 
+	/// <summary>
+	/// Returns the intersection of the given interval sets
+	/// </summary>
+	/// <param name="one">One of the interval sets to create intersection of</param>
+	/// <param name="other">The other interval set to create intersection of</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>Intersection of the given interval sets</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	public static IIntervalSet GetIntersection( IIntervalSet? one, IIntervalSet? other, double tolerance = Tolerance.Standard )
+	{
+		Tolerance.Validate( tolerance );
+
+		return new IntervalSet( GetIntersections() );
+
+		IEnumerable<IInterval> GetIntersections()
+		{
+			if( one is null || other is null )
+				yield break;
+
+			if( !one.Intervals.Any() || !other.Intervals.Any() )
+				yield break;
+
+			var orderedIntervalPairs = one.Intervals.Select( i => (IsFromFirst: true, Interval: i) )
+				.Concat( other.Intervals.Select( i => (IsFromFirst: false, Interval: i) ) )
+				.OrderBy( pair => pair.Interval.Minimum )
+				.ToArray();
+
+			var currentPair = orderedIntervalPairs.First();
+
+			foreach( var nextPair in orderedIntervalPairs.Skip( 1 ) )
+			{
+				if( nextPair.IsFromFirst == currentPair.IsFromFirst )
+				{
+					currentPair = nextPair;
+				}
+				else
+				{
+					if( currentPair.Interval.GetIntersectionWith( nextPair.Interval, tolerance ) is { } intersection )
+						yield return intersection;
+
+					currentPair = currentPair.Interval.Maximum > nextPair.Interval.Maximum ? currentPair : nextPair;
+				}
+			}
+		}
+	}
+
 	#endregion
 
 	#region IIntervalSet
