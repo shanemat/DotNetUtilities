@@ -93,5 +93,9 @@ public readonly struct IntervalSet : IIntervalSet
 
 	public IReadOnlyList<IInterval> Intervals { get; } = new List<IInterval>();
 
+	public IIntervalSet GetExtendedBy( IInterval? interval, double tolerance = Tolerance.Standard ) => interval is not null
+		? Create( Intervals.Append( interval ), tolerance )
+		: this;
+
 	#endregion
 }
