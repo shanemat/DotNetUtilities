@@ -234,6 +234,27 @@ public readonly struct IntervalSet : IIntervalSet
 	}
 
 	/// <summary>
+	/// Returns the first interval set shortened by the second one
+	/// </summary>
+	/// <param name="toShorten">The interval set to shorten</param>
+	/// <param name="shortenBy">The interval set to shorten the other one by</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>Returns the first interval set shortened by the second one</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	public static IIntervalSet GetShortened( IIntervalSet? toShorten, IIntervalSet? shortenBy, double tolerance = Tolerance.Standard )
+	{
+		Tolerance.Validate( tolerance );
+
+		if( toShorten?.Intervals.Any() is not true )
+			return new IntervalSet( [] );
+
+		if( shortenBy?.Intervals.Any() is not true )
+			return toShorten;
+
+		return toShorten.GetIntersectionWith( shortenBy.GetComplement(), tolerance );
+	}
+
+	/// <summary>
 	/// Returns a complement to the given interval set
 	/// </summary>
 	/// <param name="set">The set to create a complement to</param>
