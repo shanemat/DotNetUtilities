@@ -101,5 +101,12 @@ public readonly struct IntervalSet : IIntervalSet
 		? Create( Intervals.Concat( intervals ), tolerance )
 		: this;
 
+	public bool Contains( double value, double tolerance = Tolerance.Standard )
+	{
+		Tolerance.Validate( tolerance );
+
+		return Intervals.Any( i => i.Contains( value, tolerance ) );
+	}
+
 	#endregion
 }

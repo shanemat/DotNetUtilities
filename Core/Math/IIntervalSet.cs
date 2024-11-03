@@ -33,5 +33,13 @@ public interface IIntervalSet
 	/// <returns>A new interval set extended by the given intervals</returns>
 	IIntervalSet GetExtendedBy( IEnumerable<IInterval?>? intervals, double tolerance = Tolerance.Standard );
 
+	/// <summary>
+	/// Returns a value indicating whether the interval set contains the given value (within the specified tolerance)
+	/// </summary>
+	/// <param name="value">The value to check</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether the interval set contains the given value (within the specified tolerance)</returns>
+	bool Contains( double value, double tolerance = Tolerance.Standard );
+
 	#endregion
 }
