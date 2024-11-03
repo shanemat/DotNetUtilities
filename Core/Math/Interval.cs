@@ -32,6 +32,18 @@ public readonly struct Interval : IInterval
 
 	public override string ToString() => $"{(IsMinimumIncluded ? '[' : '(')}{Minimum}{CultureInfo.CurrentCulture.TextInfo.ListSeparator} {Maximum}{(IsMaximumIncluded ? ']' : ')')}";
 
+	public override int GetHashCode() => HashCode.Combine( IsMinimumIncluded, IsMaximumIncluded );
+
+	public override bool Equals( [NotNullWhen( true )] object? obj ) => Equals( obj as IInterval );
+
+	#endregion
+
+	#region Operators
+
+	public static bool operator ==( Interval left, Interval right ) => left.Equals( right );
+
+	public static bool operator !=( Interval left, Interval right ) => !(left == right);
+
 	#endregion
 
 	#region Methods
@@ -169,6 +181,8 @@ public readonly struct Interval : IInterval
 	}
 
 	public bool IsEqualTo( [NotNullWhen( true )] IInterval? other, double tolerance = Tolerance.Standard ) => AreEqual( this, other, tolerance );
+
+	public bool Equals( [NotNullWhen( true )] IInterval? other ) => IsEqualTo( other );
 
 	#endregion
 }

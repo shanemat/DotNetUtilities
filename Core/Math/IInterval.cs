@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents an interval
 /// </summary>
-public interface IInterval
+public interface IInterval : IEquatable<IInterval>
 {
 	#region Properties
 
