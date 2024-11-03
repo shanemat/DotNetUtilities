@@ -1,4 +1,4 @@
-﻿using Shanemat.DotNetUtils.Core.Validation;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace Shanemat.DotNetUtils.Core.Math;
 
@@ -128,6 +128,8 @@ public readonly struct IntervalSet : IIntervalSet
 
 		return Intervals.Any( i => i.Contains( value, tolerance ) );
 	}
+
+	public bool IsEqualTo( [NotNullWhen( true )] IIntervalSet? other, double tolerance = Tolerance.Standard ) => AreEqual( this, other, tolerance );
 
 	#endregion
 }

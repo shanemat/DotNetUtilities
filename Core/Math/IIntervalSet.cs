@@ -41,5 +41,13 @@ public interface IIntervalSet
 	/// <returns>A value indicating whether the interval set contains the given value (within the specified tolerance)</returns>
 	bool Contains( double value, double tolerance = Tolerance.Standard );
 
+	/// <summary>
+	/// Returns a value indicating whether this and the given interval set are equal (within the specified tolerance)
+	/// </summary>
+	/// <param name="other">The other interval set to check</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>A value indicating whether this and the given interval set are equal (within the specified tolerance)</returns>
+	bool IsEqualTo( IIntervalSet? other, double tolerance = Tolerance.Standard );
+
 	#endregion
 }
