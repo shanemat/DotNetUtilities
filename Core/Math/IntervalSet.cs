@@ -176,6 +176,17 @@ public readonly struct IntervalSet : IIntervalSet
 		return one.Intervals.SequenceEqual( other.Intervals, Interval.EqualityComparer.Create( tolerance ) );
 	}
 
+	/// <summary>
+	/// Returns the union of the given interval sets
+	/// </summary>
+	/// <param name="one">One of the interval sets to create union of</param>
+	/// <param name="other">The other interval set to create union of</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>Union of the given interval sets</returns>
+	/// <exception cref="ArgumentException">Thrown in case the supplied tolerance is not valid</exception>
+	public static IIntervalSet GetUnion( IIntervalSet? one, IIntervalSet? other, double tolerance = Tolerance.Standard )
+		=> Create( (one?.Intervals ?? []).Concat( other?.Intervals ?? [] ), tolerance );
+
 	#endregion
 
 	#region IIntervalSet
