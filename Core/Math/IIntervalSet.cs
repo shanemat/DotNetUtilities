@@ -65,5 +65,11 @@ public interface IIntervalSet : IEquatable<IIntervalSet>
 	/// <returns>Intersection of this and the given interval set</returns>
 	IIntervalSet GetIntersectionWith( IIntervalSet? other, double tolerance = Tolerance.Standard );
 
+	/// <summary>
+	/// Returns a complement to this interval set
+	/// </summary>
+	/// <returns>A complement to this interval set</returns>
+	IIntervalSet GetComplement();
+
 	#endregion
 }
