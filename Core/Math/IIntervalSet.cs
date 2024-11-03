@@ -57,5 +57,13 @@ public interface IIntervalSet : IEquatable<IIntervalSet>
 	/// <returns>Union of this and the given interval set</returns>
 	IIntervalSet GetUnionWith( IIntervalSet? other, double tolerance = Tolerance.Standard );
 
+	/// <summary>
+	/// Returns the intersection of this and the given interval set
+	/// </summary>
+	/// <param name="other">The other interval set to create intersection of</param>
+	/// <param name="tolerance">The tolerance to use</param>
+	/// <returns>Intersection of this and the given interval set</returns>
+	IIntervalSet GetIntersectionWith( IIntervalSet? other, double tolerance = Tolerance.Standard );
+
 	#endregion
 }

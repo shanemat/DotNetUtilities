@@ -260,5 +260,7 @@ public readonly struct IntervalSet : IIntervalSet
 
 	public IIntervalSet GetUnionWith( IIntervalSet? other, double tolerance = Tolerance.Standard ) => GetUnion( this, other, tolerance );
 
+	public IIntervalSet GetIntersectionWith( IIntervalSet? other, double tolerance = Tolerance.Standard ) => GetIntersection( this, other, tolerance );
+
 	#endregion
 }
