@@ -233,6 +233,66 @@ public readonly struct IntervalSet : IIntervalSet
 		}
 	}
 
+	/// <summary>
+	/// Returns a complement to the given interval set
+	/// </summary>
+	/// <param name="set">The set to create a complement to</param>
+	/// <returns>A complement to the given interval set</returns>
+	public static IIntervalSet GetComplementTo( IIntervalSet? set )
+	{
+		return new IntervalSet( GetComplementIntervals() );
+
+		IEnumerable<IInterval> GetComplementIntervals()
+		{
+			if( set is null )
+			{
+				yield return Interval.Open( double.NegativeInfinity, double.PositiveInfinity );
+
+				yield break;
+			}
+
+			if( !set.Intervals.Any() )
+			{
+				yield return Interval.Open( double.NegativeInfinity, double.PositiveInfinity );
+
+				yield break;
+			}
+
+			var firstInterval = set.Intervals[0];
+
+			if( !double.IsNegativeInfinity( firstInterval.Minimum ) )
+			{
+				yield return firstInterval.IsMinimumIncluded
+					? Interval.Open( double.NegativeInfinity, firstInterval.Minimum )
+					: Interval.OpenClosed( double.NegativeInfinity, firstInterval.Minimum );
+			}
+
+			var previousMaximum = firstInterval.Maximum;
+			var wasPreviousMaximumIncluded = firstInterval.IsMaximumIncluded;
+
+			foreach( var interval in set.Intervals.Skip( 1 ) )
+			{
+				yield return (wasPreviousMaximumIncluded, interval.IsMinimumIncluded) switch
+				{
+					(true, true) => Interval.Open( previousMaximum, interval.Minimum ),
+					(true, false) => Interval.OpenClosed( previousMaximum, interval.Minimum ),
+					(false, true) => Interval.ClosedOpen( previousMaximum, interval.Minimum ),
+					(false, false) => Interval.Closed( previousMaximum, interval.Minimum ),
+				};
+
+				previousMaximum = interval.Maximum;
+				wasPreviousMaximumIncluded = interval.IsMaximumIncluded;
+			}
+
+			if( !double.IsPositiveInfinity( set.Intervals[^1].Maximum ) )
+			{
+				yield return wasPreviousMaximumIncluded
+					? Interval.Open( previousMaximum, double.PositiveInfinity )
+					: Interval.ClosedOpen( previousMaximum, double.PositiveInfinity );
+			}
+		}
+	}
+
 	#endregion
 
 	#region IIntervalSet
