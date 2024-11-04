@@ -11,6 +11,16 @@ the type of tests.
 For details about each individual project see the _README.md_ file in said project. The complete structure is as
 follows:
 
+* [Core](Core/README.md)
+
+## Attributions
+
+I would like to express my thanks for being able to use the following icons for my NuGet packages:
+
+* <a href="https://freeicons.io">freeicons.io</a>
+    * <a class="link_pro" href="https://freeicons.io/ui-essentials/ui-essentials-settings-cog-gear-icon-22028">Core</a>
+      (by <a href="https://freeicons.io/profile/2257">www\.wishforge\.games</a>)
+
 ## Disclaimer
 
 The main purpose of this repository is for it to be my personal sandbox where I can experiment with .NET code, NuGet
@@ -30,9 +40,9 @@ ignore _any_ suggestions (oh yes, even the good ones), although I will do my bes
 ## Contributor License Agreement
 
 By contributing your code to any project under this repository you grant Matěj Sháněl a non-exclusive, irrevocable,
-worldwide, royalty-free, sublicenseable, transferable license under all of Your relevant intellectual property rights
+worldwide, royalty-free, sublicensable, transferable license under all of Your relevant intellectual property rights
 (including copyright, patent, and any other rights), to use, copy, prepare derivative works of, distribute and
-publicly perform and display the Contributions on any licensing terms, including without limitation:
+publicly perform and display the Contributions to any licensing terms, including without limitation:
 (a) open source licenses like the MIT license; and (b) binary, proprietary, or commercial licenses. Except for the
 licenses granted herein, You reserve all right, title, and interest in and to the Contribution.
 
