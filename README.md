@@ -30,9 +30,9 @@ ignore _any_ suggestions (oh yes, even the good ones), although I will do my bes
 ## Contributor License Agreement
 
 By contributing your code to any project under this repository you grant Matěj Sháněl a non-exclusive, irrevocable,
-worldwide, royalty-free, sublicenseable, transferable license under all of Your relevant intellectual property rights
+worldwide, royalty-free, sublicensable, transferable license under all of Your relevant intellectual property rights
 (including copyright, patent, and any other rights), to use, copy, prepare derivative works of, distribute and
-publicly perform and display the Contributions on any licensing terms, including without limitation:
+publicly perform and display the Contributions to any licensing terms, including without limitation:
 (a) open source licenses like the MIT license; and (b) binary, proprietary, or commercial licenses. Except for the
 licenses granted herein, You reserve all right, title, and interest in and to the Contribution.
 
