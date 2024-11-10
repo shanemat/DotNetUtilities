@@ -12,6 +12,7 @@ For details about each individual project see the _README.md_ file in said proje
 follows:
 
 * [Core](Core/README.md)
+* [Wpf](Wpf/README.md)
 
 ## Attributions
 
@@ -20,6 +21,9 @@ I would like to express my thanks for being able to use the following icons for 
 * <a href="https://freeicons.io">freeicons.io</a>
     * <a class="link_pro" href="https://freeicons.io/ui-essentials/ui-essentials-settings-cog-gear-icon-22028">Core</a>
       (by <a href="https://freeicons.io/profile/2257">www\.wishforge\.games</a>)
+    * <a class="link_pro" href="https://freeicons.io/computers-and-hardware/computers-and-hardware-screen-pc-smart-phone-icon-42208">
+      Wpf</a>
+      (by <a href="https://freeicons.io/profile/2257">www.wishforge.games</a>)
 
 ## Disclaimer
 
