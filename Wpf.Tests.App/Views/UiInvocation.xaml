@@ -11,11 +11,15 @@
         <GroupBox Header="UI Thread">
             <StackPanel>
                 <Button Click="OnUiActionButtonClick" Content="Action" />
+                <Button Click="OnUiEventHandlerButtonClick" Content="Event Handler" />
+                <Button Click="OnUiParametricEventHandlerButtonClick" Content="Parametric Event Handler" />
             </StackPanel>
         </GroupBox>
         <GroupBox Header="Background Thread">
             <StackPanel>
                 <Button Click="OnBackgroundActionButtonClick" Content="Action" />
+                <Button Click="OnBackgroundEventHandlerButtonClick" Content="Event Handler" />
+                <Button Click="OnBackgroundParametricEventHandlerButtonClick" Content="Parametric Event Handler" />
             </StackPanel>
         </GroupBox>
     </StackPanel>

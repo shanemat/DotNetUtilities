@@ -25,7 +25,37 @@ public partial class UiInvocation
 	public UiInvocation()
 	{
 		InitializeComponent();
+
+		UiEventHandler += ( _, _ ) => CheckThreadStatus( shouldRunOnUiThread: true );
+		BackgroundEventHandler += ( _, _ ) => CheckThreadStatus( shouldRunOnUiThread: false );
+
+		UiParametricEventHandler += ( _, parameter ) => CheckThreadStatus( shouldRunOnUiThread: true, parameter );
+		BackgroundParametricEventHandler += ( _, parameter ) => CheckThreadStatus( shouldRunOnUiThread: false, parameter );
 	}
+
+	#endregion
+
+	#region Events
+
+	/// <summary>
+	/// Handles the parameterless event that should be invoked on the UI thread
+	/// </summary>
+	public event EventHandler? UiEventHandler;
+
+	/// <summary>
+	/// Handles the parameterless event that should be invoked on a background thread
+	/// </summary>
+	public event EventHandler? BackgroundEventHandler;
+
+	/// <summary>
+	/// Handles the parametric event that should be invoked on the UI thread
+	/// </summary>
+	public event EventHandler<string>? UiParametricEventHandler;
+
+	/// <summary>
+	/// Handles the parametric event that should be invoked on a background thread
+	/// </summary>
+	public event EventHandler<string>? BackgroundParametricEventHandler;
 
 	#endregion
 
@@ -65,6 +95,26 @@ public partial class UiInvocation
 	private void OnBackgroundActionButtonClick( object sender, RoutedEventArgs e )
 	{
 		Task.Run( () => CheckThreadStatus( shouldRunOnUiThread: false ) );
+	}
+
+	private void OnUiEventHandlerButtonClick( object sender, RoutedEventArgs e )
+	{
+		Task.Run( () => UiEventHandler?.InvokeOnUiThread( this ) );
+	}
+
+	private void OnBackgroundEventHandlerButtonClick( object sender, RoutedEventArgs e )
+	{
+		Task.Run( () => BackgroundEventHandler?.Invoke( this, EventArgs.Empty ) );
+	}
+
+	private void OnUiParametricEventHandlerButtonClick( object sender, RoutedEventArgs e )
+	{
+		Task.Run( () => UiParametricEventHandler?.InvokeOnUiThread<string>( this, ParameterValue ) );
+	}
+
+	private void OnBackgroundParametricEventHandlerButtonClick( object sender, RoutedEventArgs e )
+	{
+		Task.Run( () => BackgroundParametricEventHandler?.Invoke( this, ParameterValue ) );
 	}
 
 	#endregion
