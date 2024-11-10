@@ -9,5 +9,6 @@
     SizeToContent="Height"
     mc:Ignorable="d">
     <StackPanel Margin="5">
+        <Button Click="OnUiInvocationButtonClick" Content="Ui Invocation" />
     </StackPanel>
 </Window>
