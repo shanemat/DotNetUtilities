@@ -35,5 +35,25 @@
                 </StackPanel>
             </GroupBox>
         </StackPanel>
+        <StackPanel>
+            <GroupBox Header="Asynchronous">
+                <StackPanel>
+                    <Button Command="{Binding AsyncSwitchOnCommand}" Content="On" />
+                    <Button Command="{Binding AsyncSwitchOffCommand}" Content="Off" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Asynchronous (Parametric)">
+                <StackPanel>
+                    <Button
+                        Command="{Binding ParametricAsyncSwitchOnCommand}"
+                        CommandParameter="{StaticResource True}"
+                        Content="On" />
+                    <Button
+                        Command="{Binding ParametricAsyncSwitchOffCommand}"
+                        CommandParameter="{StaticResource False}"
+                        Content="Off" />
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
     </StackPanel>
 </Window>

@@ -19,6 +19,16 @@ public sealed class Commands
 	/// </summary>
 	private bool _parametricSwitch;
 
+	/// <summary>
+	/// The value controlling enabled status of asynchronous commands
+	/// </summary>
+	private bool _asyncSwitch;
+
+	/// <summary>
+	/// The value controlling enabled status of parametric asynchronous commands
+	/// </summary>
+	private bool _parametricAsyncSwitch;
+
 	#endregion
 
 	#region Constructors
@@ -34,6 +44,12 @@ public sealed class Commands
 		ParametricSwitchOnCommand = new Command<bool>( ToggleParametricSwitch, _ => !_parametricSwitch );
 		ParametricSwitchOffCommand = new Command<bool>( ToggleParametricSwitch, _ => _parametricSwitch );
 
+		AsyncSwitchOnCommand = new AsyncCommand( ToggleAsyncSwitch, () => !_asyncSwitch );
+		AsyncSwitchOffCommand = new AsyncCommand( ToggleAsyncSwitch, () => _asyncSwitch );
+
+		ParametricAsyncSwitchOnCommand = new AsyncCommand<bool>( ToggleParametricAsyncSwitch, _ => !_parametricAsyncSwitch );
+		ParametricAsyncSwitchOffCommand = new AsyncCommand<bool>( ToggleParametricAsyncSwitch, _ => _parametricAsyncSwitch );
+
 		void ToggleSwitch()
 		{
 			_switch = !_switch;
@@ -48,6 +64,22 @@ public sealed class Commands
 
 			ParametricSwitchOnCommand?.OnCanExecuteChanged();
 			ParametricSwitchOffCommand?.OnCanExecuteChanged();
+		}
+
+		void ToggleAsyncSwitch()
+		{
+			_asyncSwitch = !_asyncSwitch;
+
+			AsyncSwitchOnCommand?.OnCanExecuteChanged();
+			AsyncSwitchOffCommand?.OnCanExecuteChanged();
+		}
+
+		void ToggleParametricAsyncSwitch( bool value )
+		{
+			_parametricAsyncSwitch = value;
+
+			ParametricAsyncSwitchOnCommand?.OnCanExecuteChanged();
+			ParametricAsyncSwitchOffCommand?.OnCanExecuteChanged();
 		}
 	}
 
@@ -74,6 +106,26 @@ public sealed class Commands
 	/// Gets the command for switching the parametric synchronous switch off
 	/// </summary>
 	public ICommand<bool> ParametricSwitchOffCommand { get; }
+
+	/// <summary>
+	/// Gets the command for switching the asynchronous switch on
+	/// </summary>
+	public ICommand AsyncSwitchOnCommand { get; }
+
+	/// <summary>
+	/// Gets the command for switching the asynchronous switch off
+	/// </summary>
+	public ICommand AsyncSwitchOffCommand { get; }
+
+	/// <summary>
+	/// Gets the command for switching the parametric asynchronous switch on
+	/// </summary>
+	public ICommand<bool> ParametricAsyncSwitchOnCommand { get; }
+
+	/// <summary>
+	/// Gets the command for switching the parametric asynchronous switch off
+	/// </summary>
+	public ICommand<bool> ParametricAsyncSwitchOffCommand { get; }
 
 	#endregion
 }
