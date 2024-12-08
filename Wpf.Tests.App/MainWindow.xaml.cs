@@ -23,5 +23,7 @@ public partial class MainWindow
 
 	private void OnUiInvocationButtonClick( object sender, RoutedEventArgs e ) => new Views.UiInvocation().ShowDialog();
 
+	private void OnCommandsButtonClick( object sender, RoutedEventArgs e ) => new Views.Commands().ShowDialog();
+
 	#endregion
 }
