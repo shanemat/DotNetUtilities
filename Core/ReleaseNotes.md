@@ -12,6 +12,7 @@ This document contains notes for individual versions of the Core package.
     * Methods for combining collections
     * Methods for comparing equality of two nullable objects
     * Methods for comparing `double` values (with tolerance)
+    * Methods for obtaining values of enumerations
     * Support for hierarchy traversal
     * Support for intervals
     * Support for interval sets
