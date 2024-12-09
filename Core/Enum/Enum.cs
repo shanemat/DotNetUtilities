@@ -14,5 +14,11 @@ public static class Enum<T>
 	/// </summary>
 	public static IEnumerable<T> GetValues() => System.Enum.GetValues<T>();
 
+	/// <summary>
+	/// Returns a collection of the enumeration's values satisfying the filter
+	/// </summary>
+	/// <param name="filter">The filter for enumeration values</param>
+	public static IEnumerable<T> GetValues( Func<T, bool>? filter ) => GetValues().Where( filter ?? (_ => true) );
+
 	#endregion
 }
