@@ -20,5 +20,11 @@ public static class Enum<T>
 	/// <param name="filter">The filter for enumeration values</param>
 	public static IEnumerable<T> GetValues( Func<T, bool>? filter ) => GetValues().Where( filter ?? (_ => true) );
 
+	/// <summary>
+	/// Returns a collection of the enumeration's values except for the specifically excluded ones
+	/// </summary>
+	/// <param name="excludedValues">The values to be excluded</param>
+	public static IEnumerable<T> GetValuesExcept( params T[] excludedValues ) => GetValues( v => !excludedValues.Contains( v ) );
+
 	#endregion
 }
